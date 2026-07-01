@@ -1,7 +1,7 @@
 <div class="col-md-2 bg-dark text-white vh-100">
 
     <h3 class="text-center mt-3">
-        Clinic System
+        Hospital System
     </h3>
 
     <hr>

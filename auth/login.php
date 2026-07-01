@@ -25,13 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Clinic Login</title>
+    <title>Hospital Login</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
 <div class="login-container">
-    <h2>Clinic Management System</h2>
+    <h2>Hospital Management System</h2>
     <form action="" method="POST">
     <?php if(isset($error)) { ?>
         <p style="color:red;"><?php echo $error; ?></p>
