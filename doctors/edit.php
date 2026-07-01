@@ -10,14 +10,14 @@ $row = $result->fetch_assoc();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $name = $_POST['name'];
+    $full_name = $_POST['full_name'];
     $specialization = $_POST['specialization'];
     $phone = $_POST['phone'];
-    $emai = $_POST['email'];
+    $email = $_POST['email'];
     $status = $_POST['status'];
 
     $sql = "UPDATE doctors SET
-            name='$name',
+            full_name='$full_name',
             specialization='$specialization',
             phone='$phone',
             email='$email',
@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>Edit Doctors</h2>
 
 <form method="POST">
-    <input type="text" name="name" placeholder="Name"><br>
+    <input type="text" name="full_name" placeholder="Name"><br>
     <input type="text" name="specialization" placeholder="specialization"><br>
     <input type="text" name="phone" placeholder="Phone"><br>
     <input type="email" name="email" placeholder="Email"><br>

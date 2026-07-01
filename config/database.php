@@ -1,7 +1,14 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "clinic_db");
+
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db   = "clinic_db";
+
+$conn = new mysqli($host, $user, $pass, $db);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
 ?>

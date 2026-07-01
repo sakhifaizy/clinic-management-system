@@ -5,14 +5,14 @@ include("../includes/sidebar.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $name = $_POST['name'];
+    $full_name = $_POST['full_name'];
     $specialization = $_POST['specialization'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $status = $_POST['status'];
 
-    $sql = "INSERT INTO doctors (name, specialization, phone, email, status)
-            VALUES ('$name', '$specialization', '$phone', '$email', '$status')";
+    $sql = "INSERT INTO doctors (full_name, specialization, phone, email, status)
+            VALUES ('$full_name', '$specialization', '$phone', '$email', '$status')";
 
     $conn->query($sql);
 
@@ -23,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>Add Doctors</h2>
 
 <form method="POST">
-    <input type="text" name="name" placeholder="Name"><br>
+    <input type="text" name="full_name" placeholder="Name"><br>
     <input type="text" name="specialization" placeholder="specialization"><br>
     <input type="text" name="phone" placeholder="Phone"><br>
     <input type="email" name="email" placeholder="Email"><br>

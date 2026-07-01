@@ -6,16 +6,22 @@ $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $email = $_POST['email'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username=? AND password=?");
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $_SESSION['user'] = $email;
+
+        $row = $result->fetch_assoc();
+        $_SESSION['user'] = $row['id'];
+
         header("Location: ../dashboard/index.php");
         exit();
+
     } else {
         $error = "Invalid login details!";
     }
@@ -36,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php if(isset($error)) { ?>
         <p style="color:red;"><?php echo $error; ?></p>
     <?php } ?>
-        <input type="email" placeholder="Email" name="email" required>
+        <input type="text" placeholder="User name" name="username" required>
         <input type="password" placeholder="Password" name="password" required>
         <button type="submit">Login</button>
     </form>

@@ -10,14 +10,14 @@ $row = $result->fetch_assoc();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $name = $_POST['name'];
+    $full_name = $_POST['full_name'];
     $age = $_POST['age'];
     $gender = $_POST['gender'];
     $phone = $_POST['phone'];
     $address = $_POST['address'];
 
     $sql = "UPDATE patients SET
-            name='$name',
+            full_name='$full_name',
             age='$age',
             gender='$gender',
             phone='$phone',
@@ -33,7 +33,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>Edit Patient</h2>
 
 <form method="POST">
-    <input type="text" name="name" value="<?php echo $row['name']; ?>"><br>
+    <input type="text" name="full_name" value="<?php echo $row['full_name']; ?>"><br>
     <input type="number" name="age" value="<?php echo $row['age']; ?>"><br>
     <input type="text" name="gender" value="<?php echo $row['gender']; ?>"><br>
     <input type="text" name="phone" value="<?php echo $row['phone']; ?>"><br>

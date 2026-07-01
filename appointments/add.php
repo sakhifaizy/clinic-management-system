@@ -1,22 +1,38 @@
 <?php
+session_start();
 include("../config/database.php");
 include("../includes/header.php");
 include("../includes/sidebar.php");
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if (!isset($_SESSION['user'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+// Get patients
+$patients = $conn->query("SELECT * FROM patients");
+
+// Get doctors
+$doctors = $conn->query("SELECT * FROM doctors");
+?>
+
+<?php
+
+if (isset($_POST['save'])) {
 
     $patient_id = $_POST['patient_id'];
-    $doctor_name = $_POST['doctor_name'];
-    $date = $_POST['date'];
-    $time = $_POST['time'];
+    $doctor_id = $_POST['doctor_id'];
+    $date = $_POST['appointment_date'];
     $notes = $_POST['notes'];
 
-    $sql = "INSERT INTO appointments (patient_id, doctor_name, appointment_date, appointment_time, notes)
-            VALUES ('$patient_id', '$doctor_name', '$date', '$time', '$notes')";
+    $sql = "INSERT INTO appointments (patient_id, doctor_id, appointment_date, notes)
+            VALUES ('$patient_id', '$doctor_id', '$date', '$notes')";
 
-    $conn->query($sql);
-
-    header("Location: list.php");
+    if ($conn->query($sql)) {
+        echo "Appointment saved successfully!";
+    } else {
+        echo "Error: " . $conn->error;
+    }
 }
 ?>
 
@@ -24,36 +40,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <form method="POST">
 
-    <?php        $patients = $conn->query("SELECT * FROM patients");       ?>
-
-        <label>Select Patient:</label>
-<select name="patient_id">
-
+    <label>Patient:</label>
+    <select name="patient_id" required>
         <?php while($p = $patients->fetch_assoc()) { ?>
-
             <option value="<?php echo $p['id']; ?>">
-                <?php echo $p['name']; ?>
+                <?php echo $p['full_name']; ?>
             </option>
-
         <?php } ?>
+    </select>
+    <br><br>
 
-</select><br>
+    <label>Doctor:</label>
+    <select name="doctor_id" required>
+        <?php while($d = $doctors->fetch_assoc()) { ?>
+            <option value="<?php echo $d['id']; ?>">
+                <?php echo $d['full_name']; ?>
+            </option>
+        <?php } ?>
+    </select>
+    <br><br>
 
-    Doctor Name:
-    <input type="text" name="doctor_name"><br>
+    <label>Date:</label>
+    <input type="date" name="appointment_date" required>
+    <br><br>
 
-    Date:
-    <input type="date" name="date"><br>
+    <label>Notes:</label>
+    <textarea name="notes"></textarea>
+    <br><br>
 
-    Time:
-    <input type="time" name="time"><br>
-
-    Notes:
-    <textarea name="notes"></textarea><br>
-
-    <button type="submit">Save</button>
+    <button type="submit" name="save">Save</button>
 </form>
-
-<?php
-include("../includes/footer.php");
-?>
