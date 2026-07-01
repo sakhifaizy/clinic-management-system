@@ -13,7 +13,7 @@ ON appointments.patient_id = patients.id");
 
 <a href="add.php">Add Appointment</a>
 
-<table border="1">
+<table border="1" cellpadding="10" cellspacing="0">
 <tr>
     <th>Patient Name</th>
     <th>Doctor</th>
